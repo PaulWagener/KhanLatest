@@ -500,10 +500,10 @@ class RequestHandler(webapp2.RequestHandler, RequestInputHandler):
         template_values['hide_analytics'] = hide_analytics
 
         # client-side error logging
-        template_values['include_errorception'] = gandalf('errorception')
+        template_values['include_errorception'] = None
 
         # Analytics
-        template_values['mixpanel_enabled'] = gandalf('mixpanel_enabled')
+        template_values['mixpanel_enabled'] = None
 
         # Enable for Mixpanel testing only
         # You will need to ask Tom, Kitt, or Marcia to add you to the "Khan

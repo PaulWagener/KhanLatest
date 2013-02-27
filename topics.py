@@ -86,7 +86,7 @@ class EditContent(request_handler.RequestHandler):
             # importing the full topic tree can be too large so pickling and compressing
             deferred.defer(api.v1_utils.topictree_import_task, "edit", "root", True,
                         zlib.compress(pickle_util.dump(topictree)),
-                        _queue="import-queue",
+                        _queue="glue-queue",
                         _url="/_ah/queue/deferred_import")
 
         except urlfetch.Error, e:
@@ -193,7 +193,7 @@ class RefreshCaches(request_handler.RequestHandler):
 
             if refresh_set:
                 deferred.defer(option["function"], version,
-                            _queue="topics-set-default-queue",
+                            _queue="glue-queue",
                             _url="/_ah/queue/deferred_topics-set-default-queue")
                 logging.info("Queued refresh of %s." % option["name"])
                 started_list.append(option["description"])

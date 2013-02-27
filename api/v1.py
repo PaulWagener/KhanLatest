@@ -424,7 +424,7 @@ def topictree_import(version_id="edit", topic_id="root", publish=False):
     deferred.defer(v1_utils.topictree_import_task, version_id, topic_id,
                    publish,
                    zlib.compress(pickle_util.dump(request.json)),
-                   _queue="import-queue",
+                   _queue="glue-queue",
                    _url="/_ah/queue/deferred_import")
 
 

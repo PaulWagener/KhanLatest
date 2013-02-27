@@ -1882,7 +1882,7 @@ def _do_set_default_deferred_step(func, version_number, run_code):
         deferred.defer(func,
                        version_number,
                        run_code,
-                       _queue="topics-set-default-queue",
+                       _queue="glue-queue",
                        _name=taskname,
                        _url="/_ah/queue/deferred_topics-set-default-queue")
     except (taskqueue.TaskAlreadyExistsError, taskqueue.TombstonedTaskError):

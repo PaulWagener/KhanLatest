@@ -20,14 +20,8 @@ queue:
 - name: voting-queue
   rate: 5/s
 
-- name: problem-log-queue
-  rate: 100/s
-
-- name: video-log-queue
-  rate: 140/s
-
-- name: log-summary-queue
-  rate: 60/s
+- name: glue-queue
+  rate: 80/s
 
 # for DailyActivityLog mapreduce
 - name: activity-summary-queue
@@ -47,17 +41,8 @@ queue:
 - name: gae-bingo-queue
   rate: 10/s
 
-- name: fancy-exercise-stats-queue
-  rate: 1/s
 
-- name: topics-set-default-queue
-  rate: 1/s
 
-- name: subtitles-fetch-queue
-  rate: 1/s
 
-- name: import-queue
-  rate: 60/s
 
-- name: stack-log-queue
-  rate: 80/s
+

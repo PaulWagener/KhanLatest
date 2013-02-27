@@ -274,7 +274,7 @@ def attempt_problem(user_data, user_exercise, problem_number, attempt_number,
             # and want to shift it off to an automatically-retrying task queue.
             # http://ikaisays.com/2011/01/25/app-engine-datastore-tip-monotonically-increasing-values-are-bad/
             deferred.defer(exercise_models.commit_problem_log, problem_log,
-                           _queue="problem-log-queue",
+                           _queue="glue-queue",
                            _url="/_ah/queue/deferred_problemlog")
         else:
             exercise_models.commit_problem_log(problem_log)
@@ -282,7 +282,7 @@ def attempt_problem(user_data, user_exercise, problem_number, attempt_number,
         if user_data is not None and user_data.coaches:
             # Making a separate queue for the log summaries so we can clearly see how much they are getting used
             deferred.defer(video_models.commit_log_summary_coaches, problem_log, user_data.coaches,
-                       _queue="log-summary-queue",
+                       _queue="glue-queue",
                        _url="/_ah/queue/deferred_log_summary")
 
         if user_data is not None and completed and stack_uid:
@@ -310,7 +310,7 @@ def attempt_problem(user_data, user_exercise, problem_number, attempt_number,
                                stack_log_source, card, cards_done, cards_left,
                                problem_log.__class__.__name__,
                                str(problem_log.key()),
-                               _queue="stack-log-queue",
+                               _queue="glue-queue",
                                _url="/_ah/queue/deferred_stacklog")
             else:
                 exercise_models.commit_stack_log(

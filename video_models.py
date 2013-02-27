@@ -685,14 +685,14 @@ class VideoLog(backup_model.BackupModel):
         # and want to shift it off to an automatically-retrying task queue.
         # http://ikaisays.com/2011/01/25/app-engine-datastore-tip-monotonically-increasing-values-are-bad/
         deferred.defer(_commit_video_log, video_log,
-                       _queue="video-log-queue",
+                       _queue="glue-queue",
                        _url="/_ah/queue/deferred_videolog")
 
 
         if user_data is not None and user_data.coaches:
             # Making a separate queue for the log summaries so we can clearly see how much they are getting used
             deferred.defer(commit_log_summary_coaches, video_log, user_data.coaches,
-                _queue="log-summary-queue",
+                _queue="glue-queue",
                 _url="/_ah/queue/deferred_log_summary")
 
         return (user_video, video_log, video_points_total, goals_updated)
@@ -892,7 +892,7 @@ class UserVideoCss(db.Model):
         indicate the user has started the video. """
         deferred.defer(_set_css_deferred, user_data.key(), video.key(),
                        UserVideoCss.STARTED, version,
-                       _queue="video-log-queue",
+                       _queue="glue-queue",
                        _url="/_ah/queue/deferred_videolog")
 
     @staticmethod
@@ -901,7 +901,7 @@ class UserVideoCss(db.Model):
         indicate the user has completed the video. """
         deferred.defer(_set_css_deferred, user_data.key(), video.key(),
                        UserVideoCss.COMPLETED, version,
-                       _queue="video-log-queue",
+                       _queue="glue-queue",
                        _url="/_ah/queue/deferred_videolog")
 
     @staticmethod

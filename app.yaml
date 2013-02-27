@@ -1,4 +1,4 @@
-application: khan-testing
+application: khanacademie-paul
 version: testing 
 runtime: python27
 api_version: 1

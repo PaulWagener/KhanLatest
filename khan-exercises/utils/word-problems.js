@@ -98,6 +98,7 @@ jQuery.extend( KhanUtil, {
 			'hoed': 'hoeden',
 			'hele getal':'hele getallen',
 			'tiental':'tientallen',
+            'eenheid':'eenheden',
 			'leeuw': 'leeuwen',
 			'honderdtal':'honderdtallen',
 			'duizendtal':'duizendtallen',
@@ -141,7 +142,7 @@ jQuery.extend( KhanUtil, {
 			'neushoorn' : 'neushoorns',
 			'slang' : 'slangen',
 			'pinguin':'pinguins',
-			'leeuw' : 'leeuwen'
+			'leeuw' : 'leeuwen',
 		};
 
 		var pluralizeWord = function(word) {

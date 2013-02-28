@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html data-require="math graphie graphie-geometry math-format">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Pythagorean theorem 1</title>
+    <script src="../khan-exercise.js"></script>
+    <script>
+    var min_side = 10;
+    var max_side = 50;
+
+    function getLetters() {
+        alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        i = Math.floor(Math.random()*23);
+        return [alfabet[i], alfabet[i+1], alfabet[i+2]];
+    }
+
+    </script>
+    <style>
+        .schema span {
+            width: 60px;
+        }
+        .schema span:first-child {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="exercise">
+    <div class="vars">
+        <var id="letters">getLetters()</var>
+    </div>
+
+    <div class="question">
+        <p>Bereken de lengte van de onbekende zijde.</p>
+
+        <div class="graphie">
+            var d = 8;
+            var bounds = 4;
+            init({
+                range: [[-bounds, bounds], [-bounds, bounds]],
+            });
+            zijdes = [AB, BC, AC];
+            zijdes[zijde] = "?";
+
+            var tr = new Triangle(
+                [0, 0],
+                [],
+                1,
+                {'sides': zijdes, 'points': letters},
+                [[0, AB/d], [0, 0], [BC/d, 0]]);
+            tr.rotate(randRange( 0, 360 ));
+            tr.findCenterPoints();
+            tr.translate([-tr.centroid[0], -tr.centroid[1]]);
+
+            tr.draw();
+            tr.drawLabels();
+        </div>
+    </div>
+
+    <div class="hints">
+        <div>Maak een schema. Zet de langste zijde onderaan.
+            <div class="fake_header schema">
+                <span style="visibility: hidden"></span>
+                <span>zijde</span>
+                <span>kwadraat</span>
+            </div>
+            <div class="fake_row schema">
+                <span><var>letters[0]</var><var>letters[1]</var> =</span>
+                <span id="schema_ab">...</span>
+                <span id="schema_ab2">...</span>
+           </div>
+            <div class="fake_row schema">
+                <span><var>letters[1]</var><var>letters[2]</var> =</span>
+                <span id="schema_bc">...</span>
+                <span id="schema_bc2">...</span>
+           </div>
+            <div class="fake_row schema">
+                <span><var>letters[0]</var><var>letters[2]</var> =</span>
+                <span id="schema_ac">...</span>
+                <span id="schema_ac2">...</span>
+           </div>
+        </div>
+    </div>
+
+
+    <div class="problems">
+
+        <div id="vind-zijde-0">
+            <div class="vars" data-ensure="AC > BC">
+                <var id="AC">randRange(min_side, max_side)</var>
+                <var id="BC">randRange(min_side, max_side)</var>
+                <var id="AB2">AC * AC - BC * BC</var>
+                <var id="AB">Math.sqrt(AB2)</var>
+                <var id="zijde">0</var>
+            </div>
+
+
+            <div class="solution" data-inexact data-max-error="0.1" data-type="decimal"><var>AB</var></div>
+
+            <div class="hints" data-apply="appendContents">
+                <div class="graphie">
+                    $('#schema_ac').html(AC);
+                    $('#schema_ac2').html(AC * AC);
+                    $('#schema_bc').html(BC);
+                    $('#schema_bc2').html(BC * BC);
+                </div>
+
+                <div>Bereken het kwadraat van de onbekende zijde. <br />
+                    <code class="hint_blue"><var>AC * AC</var></code>
+                    <code class="hint_orange"> - <var>BC * BC</var></code>
+                    <code class="hint_green">= <var>AB2</var></code></p>
+
+                <div class="graphie">
+                    $('#schema_ac2').css("color", KhanUtil.BLUE);
+                    $('#schema_bc2').css("color", KhanUtil.ORANGE);
+                    $('#schema_ab2').css("color", KhanUtil.GREEN).html(AB2);
+                </div>
+                </div>
+
+                <div>Bereken de gevraagde rechthoekszijde.
+                    <code>\sqrt{<var>AB2</var>} \approx <var>roundTo(1, Math.sqrt(AB2))</var></code>
+                    <div class="graphie">
+                        $('#schema_ab').html(roundTo(1, Math.sqrt(AB2)));
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vind-zijde-1">
+            <div class="vars" data-ensure="AC > AB">
+                <var id="AB">randRange(min_side, max_side)</var>
+                <var id="AC">randRange(min_side, max_side)</var>
+                <var id="BC2">AC * AC - AB * AB</var>
+                <var id="BC">Math.sqrt(BC2)</var>
+                <var id="zijde">1</var>
+            </div>
+
+            <div class="solution" data-inexact data-max-error="0.1" data-type="decimal"><var>BC</var></div>
+
+            <div class="hints" data-apply="appendContents">
+                <div class="graphie">
+                    $('#schema_ab').html(AB);
+                    $('#schema_ab2').html(AB * AB);
+                    $('#schema_ac').html(AC);
+                    $('#schema_ac2').html(AC * AC);
+                </div>
+
+                <div>Bereken het kwadraat van de onbekende zijde. <br />
+                    <code class="hint_blue"><var>AC * AC</var></code>
+                    <code class="hint_orange"> - <var>AB * AB</var></code>
+                    <code class="hint_green">= <var>BC2</var></code></p>
+
+                    <div class="graphie">
+                        $('#schema_ac2').css("color", KhanUtil.BLUE);
+                        $('#schema_ab2').css("color", KhanUtil.ORANGE);
+                        $('#schema_bc2').css("color", KhanUtil.GREEN).html(BC2);
+                    </div>
+                </div>
+
+                <div>Bereken de gevraagde rechthoekszijde.
+                    <code>\sqrt{<var>BC2</var>} \approx <var>roundTo(1, Math.sqrt(BC2))</var></code>
+                    <div class="graphie">
+                        $('#schema_bc').html(roundTo(1, Math.sqrt(BC2)));
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vind-hypotenuse">
+            <div class="vars">
+                <var id="AB">randRange(min_side, max_side)</var>
+                <var id="BC">randRange(min_side, max_side)</var>
+                <var id="AC2">AB * AB + BC * BC</var>
+                <var id="AC">Math.sqrt(AC2)</var>
+                <var id="zijde">2</var>
+            </div>
+
+            <div class="solution" data-inexact data-max-error="0.1" data-type="decimal"><var>AC</var></div>
+
+            <div class="hints" data-apply="appendContents">
+                <div class="graphie">
+                    $('#schema_ab').html(AB);
+                    $('#schema_ab2').html(AB * AB);
+                    $('#schema_bc').html(BC);
+                    $('#schema_bc2').html(BC * BC);
+                </div>
+
+                <div>Bereken het kwadraat van de onbekende zijde. <br />
+                    <code class="hint_blue"><var>AB * AB</var></code>
+                    <code class="hint_orange"> + <var>BC * BC</var></code>
+                    <code class="hint_green">= <var>AC2</var></code></p>
+
+                    <div class="graphie">
+                        $('#schema_ab2').css("color", KhanUtil.BLUE);
+                        $('#schema_bc2').css("color", KhanUtil.ORANGE);
+                        $('#schema_ac2').css("color", KhanUtil.GREEN).html(AC2);
+                    </div>
+                </div>
+
+                <div>Bereken de gevraagde rechthoekszijde.
+                    <code>\sqrt{<var>AC2</var>} \approx <var>roundTo(1, AC)</var></code>
+                    <div class="graphie">
+                        $('#schema_ac').html(roundTo(1, AC));
+                    </div>
+                </div>
+        </div>
+
+</div>
+
+
+    </div>
+    </div>
+</body>
+</html>

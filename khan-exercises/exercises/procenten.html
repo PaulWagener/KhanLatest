@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html data-require="math expressions spin word-problems graphie">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Procenten en aantallen</title>
+    <script src="../khan-exercise.js"></script>
+    <script>
+    VerhoudingsTabel = function(aantal_naam) {
+        var radius = 0.3;
+        var offset = 0.4;
+        with(KhanUtil.currentGraph) {
+            init({
+                range: [[0, 5], [-1.5, 1.5]],
+                scale: [60, 60]
+            });
+
+            label([ 0, 0.2 ], aantal_naam, "right", false).css('font-style', 'italic');
+            label([ 0, -0.2 ], "procenten", "right", false).css('font-style', 'italic');;
+    
+            // Verhoudingstabel
+            line([0, 0], [5, 0]);
+            line([2, -0.4], [2, 0.4]);
+            line([3, -0.4], [3, 0.4]);
+            line([4, -0.4], [4, 0.4]);
+    
+            this.stap = function(stap, tekst) {
+                style({
+                    stroke: "red",
+                    arrows: "-&gt;"
+                }, function() {
+                    arc([3 + stap, offset], radius, 180, 0, false, true);
+                    arc([3 + stap, -offset], radius, 180, 0, false, false);
+                    label([3 + stap, offset + radius], tekst, "above", false);
+                    label([3 + stap, -offset - radius], tekst, "below", false);
+                });
+            };
+        
+            this.aantal = function(stap, tekst) {
+                return label([2.5 + stap, 0.2], tekst, "center", false);
+            };
+        
+            this.percentage = function(stap, tekst) {
+                return label([2.5 + stap, -0.2], tekst, "center", false);
+            };
+        }
+    };
+    </script>
+</head>
+<body>
+    <div class="exercise">
+    <div class="vars">
+        <var id="aantal">randRange( 10, 150 )</var>
+        <var id="percentage">randRange( 10, 90 )</var>
+    </div>
+    
+    <p class="solution" data-forms="integer"><var>round(aantal / 100 * percentage)</var></p>
+    
+    <div class="hints">
+        <div>Maak een verhoudingstabel
+            <div class="graphie" id="vh">
+                vh = new VerhoudingsTabel(aantal_naam);
+            </div>
+        </div>
+        
+        <div><p>Schrijf het totale aantal boven in de tabel en eronder 100%</p>
+            <div class="graphie" data-update="vh">
+                vh.aantal(0, aantal);
+                vh.percentage(0, 100);
+            </div>
+        </div>
+        
+        <div><p>Ga bij <emph>procenten</emph> via 1 naar het gewenste aantal procenten</p>
+            <div class="graphie" data-update="vh">
+                vh.percentage(1, 1);
+                vh.percentage(2, percentage);
+            </div>
+        </div>
+        
+        <div><p>Zet bij de pijlen welke deling en vermenigvuldiging je moet doen.</p>
+            <div class="graphie" data-update="vh">
+                vh.stap(0, ": 100");
+                vh.stap(1, "x " + percentage);
+            </div>
+        </div>
+        
+        <div><p>Bereken het onbekende aantal. Gebruik je rekenmachine. Denk erom: Vul het tussenantwoord boven 1% niet in.
+            <code><var>aantal</var> : 100 \times <var>percentage</var> \approx <var>round(aantal / 100 * percentage)</var></code>
+            </p>
+            <div class="graphie" data-update="vh">
+                vh.aantal(2, round(aantal / 100 * percentage))
+            </div>
+        </div>
+    </div>
+    
+    <div class="problems">
+        <div id="club">
+            <div class="vars">
+                <var id="aantal_naam">"aantal " + jongens()</var>
+            </div>
+            <div class="question">
+                <p class="spin">Bij een {club|vereniging} met <var>aantal</var> leden is <var>percentage</var>% een <var>jongen()</var>. Hoeveel <var>jongens()</var> zijn dat?</p>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

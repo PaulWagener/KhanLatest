@@ -29,25 +29,6 @@ def check_deps():
     """Check if npm and friends are installed"""
     return npm.check_dependencies()
 
-try:
-    import secrets_dev
-    app_engine_username = getattr(secrets_dev, 'app_engine_username', None)
-    app_engine_password = getattr(secrets_dev, 'app_engine_password', None)
-except Exception, e:
-    app_engine_username, app_engine_password = None, None
-
-def get_app_engine_credentials():
-    if app_engine_username and app_engine_password:
-        print "Using password for %s from secrets.py" % app_engine_username
-        return (app_engine_username, app_engine_password)
-    else:
-        email = app_engine_username or raw_input("App Engine Email: ")
-        password = getpass.getpass("Password for %s: " % email)
-        return (email, password)
-
-def deploy(version, email, password):
-    print "Deploying version " + str(version)
-    return 0 == popen_return_code(['appcfg.py', '-V', str(version), "-e", email, "--passin", "update", "."], "%s\n" % password)
 
 def delete_orphan_pyc_files(rootdir):
     print "Deleting 'orphan' .pyc files"
@@ -117,8 +98,6 @@ def main():
     compress_css()
     #compress_exercises() -- Fails on most of the old Dutch exercises.
 
-    (email, password) = get_app_engine_credentials()
-    success = deploy('test', email, password)
     end = datetime.datetime.now()
     print "Done. Duration: %s" % (end - start)
 

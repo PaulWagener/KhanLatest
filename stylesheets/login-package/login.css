@@ -14,7 +14,7 @@ form.auth-form {
 .login-container.card-case {
     margin: 6em auto;
     padding: 2em 1em;
-    width: 740px;
+    width: 850px;
     max-width: 100%;
     white-space: nowrap;
 }
@@ -45,7 +45,7 @@ form.auth-form {
 
 #page-root .vertical-separator {
     width: 1px;
-    height: 250px;
+    height: 300px;
     margin: 0 2em;
     border-left: 1px solid #ccc;
     text-align: center;

@@ -95,8 +95,8 @@ Login.loginWithPassword = function() {
     $("#error-text").css("visiblity", "hidden");
 
     // Pre-validate.
-    if (Login.ensureValid_("#identifier", "Email or username required") &&
-            Login.ensureValid_("#password", "Password required")) {
+    if (Login.ensureValid_("#identifier", "Email of gebruikersnaam vereist") &&
+            Login.ensureValid_("#password", "Wachtwoord vereist")) {
         Login.asyncFormPost(
                 $("#login-form"),
                 function(data) {
@@ -142,11 +142,11 @@ Login.enableSubmit_ = function() {
 Login.onPasswordLoginFail = function(errors) {
     var text;
     if (errors["badlogin"]) {
-        text = "Your login or password is incorrect.";
+        text = "Je login of wachtwoord is niet correct.";
     } else {
         // Unexpected error. This shouldn't really happen but
         // just in case...
-        text = "Error logging in. Please try again.";
+        text = "Probleem met inloggen. Probeer nog een keer.";
     }
 
     $("#error-text").text(text).css("visibility", "");

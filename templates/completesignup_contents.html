@@ -10,7 +10,7 @@
         <div class="completesignup-container card-case vertical-shadow">
             <div class="completesignup-contents">
             <img src="/images/hand-tree.png" width="75" height="75" class="tree">
-            <h3><strong>Great!</strong>
+            <h3><strong>Heel goed!</strong>
             {% if user %}
                 {% if user.is_facebook_user %}
                     Now create your Khan Academy login and we'll connect it to your existing Facebook account.
@@ -18,7 +18,7 @@
                     Now create your Khan Academy login and we'll connect it to your existing Google account.
                 {% endif %}
             {% else %}
-                Now create your Khan Academy login.
+                Maak nu je account aan.
             {% endif %}
             </h3>
 
@@ -34,12 +34,12 @@
             </div>
 
             <div class="field-container row-fluid">
-                <label class="field-label span4" for="nickname">Your name</label>
+                <label class="field-label span4" for="nickname">Jouw naam</label>
                 <input id="nickname" name="nickname" class="simple-input ui-corner-all span6" value="{{values['nickname']|escape}}">
             </div>
 
             <div class="field-container row-fluid">
-                <label class="field-label span4" for="gender">Male/Female (optional)</label>
+                <label class="field-label span4" for="gender">Man/Vrouw (optioneel)</label>
                 <select id="gender" name="gender" class="simple-input ui-corner-all span6">
                     <option value="unspecified" {% if values['gender'] == 'unspecified' %}selected{% endif %}> </option>
                     <option value="male" {% if values['gender'] == 'male' %}selected{% endif %}>Male</option>
@@ -48,12 +48,12 @@
             </div>
 
             <div class="field-container row-fluid">
-                <label class="field-label span4" for="username">Username</label>
+                <label class="field-label span4" for="username">Gebruikersnaam</label>
                 <input id="username" name="username" class="simple-input ui-corner-all span6" value="{{ values['username']|escape }}">
             </div>
 
             <div class="field-container row-fluid">
-                <label class="field-label span4" for="password">Password</label>
+                <label class="field-label span4" for="password">Wachtwoord</label>
                 <input id="password" name="password" type="password" class="simple-input ui-corner-all span6">
             </div>
 
@@ -66,7 +66,7 @@
                 <div class="span3">{# spacer #}&nbsp;</div>
                 <div class="span7">
                     <span class="tos-area">By clicking "Signup", you agree to our <a href="/about/tos" target="_blank" tabindex="1">Terms of Service</a> and <a href="/about/privacy-policy" target="_blank" tabindex="1">Privacy Policy</a></span>
-                    <input type="button" id="submit-button" name="submit-button" value="Signup" class="simple-button green">
+                    <input type="button" id="submit-button" name="submit-button" value="Inschrijven" class="simple-button green">
                 </div>
             </div>
 

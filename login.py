@@ -168,13 +168,13 @@ class MobileOAuthLogin(request_handler.RequestHandler):
         identifier = self.request_string('identifier')
         password = self.request_string('password')
         if not identifier or not password:
-            self.render_login_page("Please enter your username and password.")
+            self.render_login_page("Vul je gebruikersnaam en wachtwoord in.")
             return
 
         user_data = UserData.get_from_username_or_email(identifier.strip())
         if not user_data or not user_data.validate_password(password):
             # TODO(benkomalo): IP-based throttling of failed logins?
-            self.render_login_page("Your login or password is incorrect.")
+            self.render_login_page("Je login of wachtwoord is niet correct.")
             return
 
         # Successful login - convert to an OAuth access_token
@@ -840,9 +840,9 @@ class CompleteSignup(request_handler.RequestHandler):
 
         # Simple existence validations
         errors = {}
-        for field, error in [('nickname', "Please tell us your name."),
-                             ('username', "Please pick a username."),
-                             ('password', "We need a password from you.")]:
+        for field, error in [('nickname', "Vergeet niet je naam in te vullen."),
+                             ('username', "Kies een gebruikersnaam."),
+                             ('password', "Wat is je wachtwoord?")]:
             if not values[field]:
                 errors[field] = error
 
@@ -856,22 +856,22 @@ class CompleteSignup(request_handler.RequestHandler):
             username = values['username']
             # TODO(benkomalo): ask for advice on text
             if user_models.UniqueUsername.is_username_too_short(username):
-                errors['username'] = "Sorry, that username's too short."
+                errors['username'] = "Sorry, maar die gebruikersnaam is te kort."
             elif not user_models.UniqueUsername.is_valid_username(username):
-                errors['username'] = "Usernames must start with a letter and be alphanumeric."
+                errors['username'] = "Een gebruikersnaam moet beginnnen met een letter en mag alleen cijfers en letters bevatten."
 
             # Only check to see if it's available if we're changing values
             # or if this is a brand new UserData
             elif ((not user_data or user_data.username != username) and
                     not user_models.UniqueUsername.is_available_username(username)):
-                errors['username'] = "That username isn't available."
+                errors['username'] = "Die gebruikersnaam is niet meer beschikbaar."
 
         if values['password']:
             password = values['password']
             if not auth.passwords.is_sufficient_password(password,
                                                          values['nickname'],
                                                          values['username']):
-                errors['password'] = "Sorry, but that password's too weak."
+                errors['password'] = "Sorry, maar dat wachtwoord is niet sterk genoeg."
 
 
         if len(errors) > 0:
@@ -885,7 +885,7 @@ class CompleteSignup(request_handler.RequestHandler):
             def txn():
                 if (username != user_data.username
                         and not user_data.claim_username(username)):
-                    errors['username'] = "That username isn't available."
+                    errors['username'] = "Die gebruikersnaam is niet beschikbaar."
                     return False
 
                 user_data.set_password(password)
@@ -912,7 +912,7 @@ class CompleteSignup(request_handler.RequestHandler):
                         gender=gender)
 
                 if not user_data:
-                    self.render_json({'errors': {'username': "That username isn't available."}},
+                    self.render_json({'errors': {'username': "Die gebruikersnaam is niet beschikbaar."}},
                                      camel_cased=True)
                     return
                 elif user_data.username != username:

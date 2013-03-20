@@ -1,19 +1,11 @@
 <div class="signup-success-dialog modal fade hide">
     <div class="modal-body">
-        <h3 class="email-header">We hebben je  {{#if resendDetected}}re-{{/if}} een email gestuurd naar</h3>
+        <h3 class="email-header">Klik op deze link om verder te gaan: <a href="/completesignup?token={{token}}"">Klik hier</a></h3>
         <div class="email">{{email}}</div>
 
         <img src="/images/hand-tree.png" class="tree">
         <div class="instructions">
-            {{#if resendDetected }}
-                Controleer je spam folder als je het bericht niet kunt vinden in je inbox.
-            {{else}}
-                Klik op de link in de email om je eigen Khan Academie gebruikersnaam en wachtwoord aan te maken.
-            {{/if}}
         </div>
 
-        {{#if token}}
-        <div class="debug">token for debugging: <a href="/completesignup?token={{token}}">{{token}}</a></div>
-        {{/if}}
     </div>
 </div>

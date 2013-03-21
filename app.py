@@ -47,10 +47,10 @@ for attr in (
     else:
         setattr(App, attr, getattr(secrets, attr))
 
-if App.is_dev_server and App.token_recipe_key is None:
+#if App.is_dev_server and App.token_recipe_key is None:
     # If a key is missing to dish out auth tokens on dev, we can't login
     # with our own auth system. So just set it to a random string.
-    App.token_recipe_key = 'lkj9Hg7823afpEOI3nmlkfl3jfnklsfQQ'
+App.token_recipe_key = 'lkj9Hg7823afpEOI3nmlkfl3jfnklsfQQ'
 
 # Not a secret but behaves like one. Used by Facebook Open Graph for
 # namespacing custom OG objects (ex: khanacademy:earn). Can be configured in

@@ -561,7 +561,9 @@ class Signup(request_handler.RequestHandler):
                 email,
                 birthdate,
                 continue_url)
-        Signup.send_verification_email(unverified_user)
+        
+        # Skip!
+        #Signup.send_verification_email(unverified_user)
 
         response_json = {
                 'success': True,
@@ -569,10 +571,10 @@ class Signup(request_handler.RequestHandler):
                 'resend_detected': resend_detected,
                 }
 
-        if App.is_dev_server:
+        #if App.is_dev_server:
             # Send down the verification token so the client can easily
             # create a link to test with.
-            response_json['token'] = unverified_user.randstring
+        response_json['token'] = unverified_user.randstring
 
         # TODO(benkomalo): since users are now blocked from further access
         #    due to requiring verification of e-mail, we need to do something
